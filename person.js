@@ -20,4 +20,15 @@ Person.prototype.greeting = function() {
 };
 */
 
+/*
+    module wrapper function
+    (function(exports, require, module, __filename, __dirname){
+
+    })
+*/
+console.log(`
+    Directory: ${__dirname}
+    File: ${__filename}
+`);
+
 module.exports = Person;
