@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const fetch = require("node-fetch");
 
 module.exports = function() {
     const PORT = process.env.PORT || 5000;
@@ -28,8 +29,14 @@ module.exports = function() {
         }
 
         if (req.url === "/api/users") {
-            res.writeHead(200, { "Content-type": "application/json" });
-            res.end(JSON.stringify({ user: "brandon", age: 10 }));
+            fetch("https://jsonplaceholder.typicode.com/todos/1")
+                .then(response => {
+                    return response.json();
+                })
+                .then(parsedRes => {
+                    res.writeHead(200, { "Content-type": "application/json" });
+                    res.end(JSON.stringify(parsedRes));
+                });
         }
     }).listen(PORT, () => console.log(`Now listening to port ${PORT}`));
 };
